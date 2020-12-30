@@ -8,8 +8,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const client = new ApolloClient({
-//   uri: "https://us-central1-strava-stats-aac46.cloudfunctions.net/strava/api",
-  uri: "http://localhost:5001/strava-stats-aac46/us-central1/strava/api",
+  uri: "https://us-central1-strava-stats-aac46.cloudfunctions.net/strava/api",
+//   uri: "http://localhost:5001/strava-stats-aac46/us-central1/strava/api",
   cache: new InMemoryCache(),
 });
 
