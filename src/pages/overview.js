@@ -3,19 +3,12 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { INIT_STATS } from "../queries";
 import { DateSelection } from "../components/DateSelection";
 import { Stats } from "../components/Stats";
+import Loading from "../components/Loading";
 
-const Overview = ({ initLoading }) => {
-  const [activeMonth, setActiveMonth] = useState(0);
-  const [activeYear, setActiveYear] = useState(0);
+const Overview = ({ initLoading, activeYear, activeMonth }) => {
   return (
-    <div>
-      <DateSelection
-        initLoading={initLoading}
-        activeMonth={activeMonth}
-        activeYear={activeYear}
-        setActiveMonth={setActiveMonth}
-        setActiveYear={setActiveYear}
-      />
+    <div className="page-container">
+      {initLoading && <Loading />}
       <Stats
         activeMonth={activeMonth}
         activeYear={activeYear}

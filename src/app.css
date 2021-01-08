@@ -1,20 +1,19 @@
 body {
-    text-align: center;
-    background-color: #282c34;
+  background-color: #282c34;
 }
 
 .App {
-    width: 975px;
-    margin: 0 auto;
-    background-color: white;
+  width: 975px;
+  margin: 0 auto;
+  background-color: white;
 }
 
 .tab-container {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .chartRow {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
