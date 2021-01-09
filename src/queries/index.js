@@ -15,7 +15,21 @@ const STAT_DETAILS = gql`
     count
     average_speed
     daysOfWeek
-	periodOfDay
+    periodOfDay
+  }
+`;
+
+export const ROUTES = gql`
+  query {
+    activities {
+      start_latlng {
+        lat
+        lng
+      }
+      map {
+        summary_polyline
+      }
+    }
   }
 `;
 

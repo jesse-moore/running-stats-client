@@ -156,3 +156,7 @@ body {
     focus:outline-none
     shadow-sm;
 }
+
+.mapContainer {
+  height: 80vh;
+}
