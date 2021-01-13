@@ -20,8 +20,9 @@ const STAT_DETAILS = gql`
 `;
 
 export const ROUTES = gql`
-  query {
-    activities {
+  query($year: Int, $month: Int) {
+    activities(year: $year, month: $month) {
+      strava_id
       start_latlng {
         lat
         lng

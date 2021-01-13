@@ -1,61 +1,52 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useLazyQuery } from "@apollo/client";
-import { useLocation } from "react-router-dom";
-import * as turf from "@turf/turf";
-import mapboxgl from "mapbox-gl";
 import { ROUTES } from "../queries/index";
-import { mapBoxKey } from "../config";
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import parseRoutes from "../helpers/parseRoutes";
 
-const MapPage = ({ activeMonth, activeYear, Map }) => {
-  const [fetchRoutes, { data, loading }] = useLazyQuery(ROUTES);
-  const [map, setMap] = useState(null);
-  const location = useLocation();
-  const isActive = location.pathname === "/map";
+import Loading from "../components/Loading";
+
+const MapPage = ({ activeMonth, activeYear, map }) => {
+  const [fetchRoutes, { data, loading, error }] = useLazyQuery(ROUTES, {
+    variables: {
+      year: activeYear,
+      month: activeMonth,
+    },
+  });
+
+  const mapContainer = useRef(null);
+
+  useEffect(async () => {
+    mapContainer.current.appendChild(map.element);
+  }, []);
+
+  useEffect(async () => {
+    if (loading || error || !data) return;
+    const { pointsGeoJSON, linesGeoJSON } = parseRoutes(data);
+    if (!map.isLoaded) {
+      await map.loadMap({ pointsGeoJSON, linesGeoJSON });
+    } else {
+      map.loadSource({ pointsGeoJSON, linesGeoJSON });
+    }
+  }, [data, error, loading]);
 
   useEffect(() => {
-    if (isActive && map) {
-        map.resize();
-        // fetchRoutes();
-    }
-    // mapboxgl.accessToken = mapBoxKey;
-    // const map = new mapboxgl.Map({
-    //   container: mapContainer.current,
-    //   style: "mapbox://styles/mapbox/light-v10",
-    //   center: [-94.146, 36.203],
-    //   zoom: 14,
-    //   maxZoom: 14,
-    // });
-    const canvas = document.getElementById;
-  }, []);
-  console.log("RENDERED");
+    fetchRoutes();
+  }, [activeYear, activeMonth]);
 
   return (
-    <div
-      className={
-        isActive
-          ? `page-container mapContainer`
-          : "page-container mapContainer hidden"
-      }
-      id="mapContainer"
-    >
-      <Map
-        className="mapContainer"
-        style="mapbox://styles/mapbox/light-v10"
-        center={[-94.146, 36.203]}
-        zoom={[14]}
-        onStyleLoad={(_, event) => {
-          setMap(event.target);
-        }}
-      />
+    <div className="page-container">
+      {loading && <Loading />}
+      <div className="map-container" ref={mapContainer}>
+        <button
+          onClick={() => map.fitBounds()}
+          id="btn-fit-bounds"
+          className="btn-dflt"
+        >
+          Fit All Activities
+        </button>
+      </div>
     </div>
   );
 };
 
-// export default MapPage;
-export default React.memo(
-  ({ activeMonth, Map }) => {
-    return <MapPage activeMonth={activeMonth} Map={Map} />;
-  },
-  () => true
-);
+export default MapPage;

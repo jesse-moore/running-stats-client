@@ -5,7 +5,11 @@ body {
 }
 
 .app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   max-width: 975px;
+  height: calc(100vh - 50px);
   margin: 25px auto;
   background-color: white;
   border-radius: 5px;
@@ -34,7 +38,7 @@ body {
 }
 
 .page-container {
-  @apply bg-gray-100 relative;
+  @apply bg-gray-100 relative flex-grow;
 }
 
 .stats-container {
@@ -108,7 +112,7 @@ body {
 }
 
 .day-stat {
-  @apply w-72 mx-4 my-4;
+  @apply w-72 mx-4 my-4 relative;
 }
 
 .day-stat .stat-card-divider {
@@ -127,7 +131,7 @@ body {
 }
 
 .loading-overlay {
-  @apply bg-gray-200 bg-opacity-90 absolute w-full h-full pt-24;
+  @apply bg-gray-200 bg-opacity-90 absolute w-full h-full pt-24 z-10;
 }
 
 .loading-overlay-text {
@@ -157,6 +161,14 @@ body {
     shadow-sm;
 }
 
-.mapContainer {
-  height: 80vh;
+.map-container {
+  height: 100%;
+}
+
+.mapboxgl-map {
+  height: 100%;
+}
+
+#btn-fit-bounds {
+  @apply absolute z-10 right-4;
 }

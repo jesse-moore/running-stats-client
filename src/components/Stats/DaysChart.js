@@ -78,8 +78,8 @@ function updateChart(data, chartRef, toolTipRef) {
     })
     .on("mousemove", function (event) {
       toolTip
-        .style("left", event.pageX + 15 + "px")
-        .style("top", event.pageY - 15 + "px");
+        .style("left", event.offsetX + 15 + "px")
+        .style("top", event.offsetY + 15 + "px");
     })
     .on("mouseleave", function () {
       toolTip.html("");
