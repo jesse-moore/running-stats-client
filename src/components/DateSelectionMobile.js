@@ -3,7 +3,7 @@ import { useLazyQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { AVAILABLE_STATS } from "../queries";
 
-const DateSelection = ({
+const DateSelectionMobile = ({
   activeMonth,
   activeYear,
   setActiveMonth,
@@ -17,18 +17,15 @@ const DateSelection = ({
 
   const availableStats = data ? data.availableStats : {};
 
-  function handleClick({ target }) {
-    const { type } = target.dataset;
-    const value = Number(target.dataset.value);
-    if (value === 0 && type === "year") {
-      setActiveMonth(0);
-      setActiveYear(0);
-    } else if (type === "year") {
-      setActiveYear(value);
-      setActiveMonth(0);
-    } else {
-      setActiveMonth(value);
-    }
+  function handleClickYear({ target }) {
+    const value = Number(target.value);
+    setActiveYear(value);
+    setActiveMonth(0);
+  }
+
+  function handleClickMonth({ target }) {
+    const value = Number(target.value);
+    setActiveMonth(value);
   }
 
   const months = Array(12)
@@ -60,48 +57,40 @@ const DateSelection = ({
     });
   return (
     <div className="date-selection-container">
-      <Buttons
-        buttons={years}
-        activeButton={activeYear}
-        setActiveButton={handleClick}
-        type="year"
+      <Select
+        options={years}
+        activeValue={activeYear}
+        setValue={handleClickYear}
+        name="Year"
       />
-      <Buttons
-        buttons={months}
-        activeButton={activeMonth}
-        setActiveButton={handleClick}
-        type="month"
+      <Select
+        options={months}
+        activeValue={activeMonth}
+        setValue={handleClickMonth}
+        name="Month"
       />
     </div>
   );
 
-  function Buttons({ buttons, activeButton, setActiveButton, type }) {
-    const buttonElements = [
+  function Select({ options, activeValue, setValue, name }) {
+    const elements = [
       { name: "All", value: 0, disabled: false },
-      ...buttons,
+      ...options,
     ].map(({ name, disabled, value }) => {
-      let className = "btn-dflt";
-      if (disabled) {
-        className = `${className}  btn-dsbld`;
-      }
-      if (value === activeButton) {
-        className = `${className}  btn-actv`;
-      }
       return (
-        <button
-          data-value={value}
-          data-type={type}
-          className={className}
-          onClick={setActiveButton}
-          key={name}
-          disabled={disabled}
-        >
+        <option value={value} disabled={disabled} key={name}>
           {name}
-        </button>
+        </option>
       );
     });
-    return <div>{buttonElements}</div>;
+    return (
+      <div>
+        <select value={activeValue} name={name} id={name} onChange={setValue}>
+          {elements}
+        </select>
+      </div>
+    );
   }
 };
 
-export default DateSelection;
+export default DateSelectionMobile;

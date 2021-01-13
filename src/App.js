@@ -1,10 +1,9 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
-import { useQuery } from "@apollo/client";
-import { INIT_STATS } from "./queries";
+import useCheckMobile from "./helpers/checkMobile";
 import NavBar from "./components/NavBar";
-import { DateSelection } from "./components/DateSelection";
+import DateSelection from "./components/DateSelection";
+import DateSelectionMobile from "./components/DateSelectionMobile";
 import Overview from "./pages/Overview";
 import MapPage from "./pages/Map";
 import mapboxMap from "./components/Mapbox";
@@ -14,17 +13,28 @@ const map = new mapboxMap();
 function App() {
   const [activeMonth, setActiveMonth] = useState(0);
   const [activeYear, setActiveYear] = useState(0);
+  const isMobile = useCheckMobile();
 
   return (
     <Router>
       <div className="app">
         <header className="app-header">Activity Stats</header>
-        <DateSelection
-          activeMonth={activeMonth}
-          activeYear={activeYear}
-          setActiveMonth={setActiveMonth}
-          setActiveYear={setActiveYear}
-        />
+        {isMobile ? (
+          <DateSelectionMobile
+            activeMonth={activeMonth}
+            activeYear={activeYear}
+            setActiveMonth={setActiveMonth}
+            setActiveYear={setActiveYear}
+          />
+        ) : (
+          <DateSelection
+            activeMonth={activeMonth}
+            activeYear={activeYear}
+            setActiveMonth={setActiveMonth}
+            setActiveYear={setActiveYear}
+          />
+        )}
+
         <NavBar />
         <Switch>
           <Route path="/map">

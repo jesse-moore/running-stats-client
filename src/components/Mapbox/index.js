@@ -46,7 +46,7 @@ class mapboxMap {
             visibility: "visible",
           },
           paint: {
-            "line-color": "rgba(255, 145, 0,.5)",
+            "line-color": "rgba(255, 145, 0,.8)",
             "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1, 14, 3],
           },
           minzoom: 9,

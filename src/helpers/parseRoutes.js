@@ -41,8 +41,7 @@ const parsePoint = ({ lat, lng, bbox }) => {
 };
 
 const parseRoute = (summary_polyline) => {
-  const escaped = summary_polyline.replace("/", "//");
-  const polyline = polyUtil.toGeoJSON(escaped);
+  const polyline = polyUtil.toGeoJSON(summary_polyline);
   const lineFeature = {
     type: "Feature",
     geometry: polyline,
