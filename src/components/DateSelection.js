@@ -4,24 +4,18 @@ import dayjs from "dayjs";
 import { AVAILABLE_STATS } from "../queries";
 
 export const DateSelection = ({
-  initLoading,
   activeMonth,
   activeYear,
   setActiveMonth,
   setActiveYear,
 }) => {
-  const [fetchAvailableStats, { data, loading }] = useLazyQuery(
-    AVAILABLE_STATS,
-    {
-      fetchPolicy: "cache-only",
-    }
+  const [fetchAvailableStats, { data }] = useLazyQuery(
+    AVAILABLE_STATS
   );
 
   useEffect(() => {
-    if (!initLoading) {
-      fetchAvailableStats();
-    }
-  }, [initLoading]);
+    fetchAvailableStats();
+  }, []);
 
   const availableStats = data ? data.availableStats : {};
 

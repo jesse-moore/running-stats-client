@@ -7,41 +7,35 @@ import NavBar from "./components/NavBar";
 import { DateSelection } from "./components/DateSelection";
 import Overview from "./pages/Overview";
 import MapPage from "./pages/Map";
-import { mapBoxKey } from "./config";
+import mapboxMap from "./components/Mapbox";
 
-const Map = ReactMapboxGl({
-  accessToken: mapBoxKey,
-  maxZoom: 14,
-});
+const map = new mapboxMap();
 
 function App() {
   const [activeMonth, setActiveMonth] = useState(0);
   const [activeYear, setActiveYear] = useState(0);
-
-  const { loading } = useQuery(INIT_STATS, {
-    variables: { year: 0, month: 0 },
-  });
 
   return (
     <Router>
       <div className="app">
         <header className="app-header">Activity Stats</header>
         <DateSelection
-          initLoading={loading}
           activeMonth={activeMonth}
           activeYear={activeYear}
           setActiveMonth={setActiveMonth}
           setActiveYear={setActiveYear}
         />
         <NavBar />
-        <MapPage Map={Map} />
         <Switch>
-          <Route path="/" exact>
-            <Overview
-              initLoading={loading}
+          <Route path="/map">
+            <MapPage
+              map={map}
               activeMonth={activeMonth}
               activeYear={activeYear}
             />
+          </Route>
+          <Route path="/" exact>
+            <Overview activeMonth={activeMonth} activeYear={activeYear} />
           </Route>
         </Switch>
       </div>
@@ -49,10 +43,4 @@ function App() {
   );
 }
 
-// const MemoMap = React.memo(
-//   function ({ Map }) {
-//     return <MapPage Map={Map} />;
-//   },
-//   () => true
-// );
 export default App;
