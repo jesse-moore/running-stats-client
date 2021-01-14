@@ -11,9 +11,9 @@ const PeriodOfDay = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="day-stat">
-      <h3 className="stat-header">Period Of Day</h3>
-	  <div className="stat-card-divider"></div>
+    <div className="w-72 mx-4 my-4 relative">
+      <h3 className="font-thin text-xl">Period Of Day</h3>
+      <div className="stat-card-divider mb-2"></div>
       <div id="periodOfDayChart" />
     </div>
   );

@@ -49,10 +49,13 @@ function Chart({ data }) {
   }, [data]);
 
   return (
-    <div className="day-stat">
-      <h3 className="stat-header">Days Run</h3>
-      <div className="stat-card-divider"></div>
-      <div ref={toolTip} className="tool-tip" />
+    <div className="w-72 mx-4 my-4 relative">
+      <h3 className="font-thin text-xl">Days Run</h3>
+      <div className="stat-card-divider mb-2"></div>
+      <div
+        ref={toolTip}
+        className="absolute bg-gray-600 text-white py-1 px-2 rounded opacity-0 text-sm"
+      />
       <div ref={chart}></div>
     </div>
   );

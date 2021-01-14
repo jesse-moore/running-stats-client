@@ -6,9 +6,9 @@ import PeriodOfDay from "./PeriodOfDay";
 
 export function Stats({ activeMonth, activeYear, stat }) {
   return (
-    <div className="stats-container">
+    <div className="text-center">
       <Header activeMonth={activeMonth} activeYear={activeYear} />
-      <div className="stat-container">
+      <div className="flex flex-wrap justify-around">
         <TextStat title={"Total Runs"} stat={stat.count} />
         <TextStat title={"Total Distance"} stat={stat.total_distance} />
         <TextStat title={"Average Distance"} stat={stat.average_distance} />
@@ -23,10 +23,10 @@ export function Stats({ activeMonth, activeYear, stat }) {
           stat={stat.average_moving_time}
         />
         <TextStat title={"Average Speed"} stat={stat.average_speed} />
-        <div className="stat-spacer" />
-        <div className="stat-spacer" />
+        <div className="w-60 px-2 flex-shrink-0" />
+        <div className="w-60 px-2 flex-shrink-0" />
       </div>
-      <div className="day-stat-container">
+      <div className="flex flex-wrap justify-center my-4">
         <DaysChart data={stat.daysOfWeek} />
         <PeriodOfDay data={stat.periodOfDay} />
       </div>

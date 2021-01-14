@@ -36,11 +36,11 @@ const MapPage = ({ activeMonth, activeYear, map }) => {
   return (
     <div className="page-container">
       {loading && <Loading />}
-      <div className="map-container" ref={mapContainer}>
+      <div className="h-full" ref={mapContainer}>
         <button
           onClick={() => map.fitBounds()}
           id="btn-fit-bounds"
-          className="btn-dflt"
+          className="btn-dflt bg-gray-200 absolute z-10 right-4"
         >
           Fit All Activities
         </button>

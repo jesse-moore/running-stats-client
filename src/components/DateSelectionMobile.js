@@ -56,13 +56,14 @@ const DateSelectionMobile = ({
       return { name: year, value: year, disabled: !available };
     });
   return (
-    <div className="date-selection-container">
+    <div className="flex py-2 mt-4 bg-gray-200 w-11/12 mx-auto justify-center rounded rounded-b-none shadow-md text-center">
       <Select
         options={years}
         activeValue={activeYear}
         setValue={handleClickYear}
         name="Year"
       />
+
       <Select
         options={months}
         activeValue={activeMonth}
@@ -78,14 +79,26 @@ const DateSelectionMobile = ({
       ...options,
     ].map(({ name, disabled, value }) => {
       return (
-        <option value={value} disabled={disabled} key={name}>
+        <option
+          className={disabled ? "bg-gray-300" : ""}
+          value={value}
+          disabled={disabled}
+          key={name}
+        >
           {name}
         </option>
       );
     });
     return (
-      <div>
-        <select value={activeValue} name={name} id={name} onChange={setValue}>
+      <div className="mx-2 my-2">
+        {`${name}: `}
+        <select
+          className="w-24 rounded ml-2"
+          value={activeValue}
+          name={name}
+          id={name}
+          onChange={setValue}
+        >
           {elements}
         </select>
       </div>

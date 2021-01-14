@@ -17,8 +17,10 @@ function App() {
 
   return (
     <Router>
-      <div className="app">
-        <header className="app-header">Activity Stats</header>
+      <div className="app bg-gray-300 relative flex flex-col max-w-screen-lg my-2 mx-auto rounded">
+        <header className="py-2 text-3xl rounded rounded-b-none text-center">
+          Activity Stats
+        </header>
         {isMobile ? (
           <DateSelectionMobile
             activeMonth={activeMonth}

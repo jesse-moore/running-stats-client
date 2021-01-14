@@ -59,7 +59,7 @@ const DateSelection = ({
       return { name: year, value: year, disabled: !available };
     });
   return (
-    <div className="date-selection-container">
+    <div className="py-2 mt-4 bg-gray-200 w-11/12 mx-auto rounded rounded-b-none shadow-md text-center">
       <Buttons
         buttons={years}
         activeButton={activeYear}
@@ -76,17 +76,22 @@ const DateSelection = ({
   );
 
   function Buttons({ buttons, activeButton, setActiveButton, type }) {
+    const defaultStyle =
+      "px-2 py-1 m-2 rounded-lg bg-gray-100 font-semibold focus:outline-none shadow-sm ";
+    const disabledStyle = "opacity-30";
+    const activeStyle = "bg-blue-400";
     const buttonElements = [
       { name: "All", value: 0, disabled: false },
       ...buttons,
     ].map(({ name, disabled, value }) => {
-      let className = "btn-dflt";
+      let className = defaultStyle;
       if (disabled) {
-        className = `${className}  btn-dsbld`;
-      }
-      if (value === activeButton) {
-        className = `${className}  btn-actv`;
-      }
+        className += disabledStyle;
+      } else if (value === activeButton) {
+        className += activeStyle;
+      } else {
+		className += "hover:bg-blue-400"
+	  }
       return (
         <button
           data-value={value}
