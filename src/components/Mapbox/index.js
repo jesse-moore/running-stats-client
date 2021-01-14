@@ -1,4 +1,6 @@
 import mapboxgl from "mapbox-gl";
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
 import { mapBoxKey } from "../../config";
 import * as turf from "@turf/turf";
 
