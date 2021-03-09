@@ -6,6 +6,7 @@ import DateSelection from "./components/DateSelection";
 import DateSelectionMobile from "./components/DateSelectionMobile";
 import Overview from "./pages/Overview";
 import MapPage from "./pages/Map";
+import List from "./pages/List";
 import mapboxMap from "./components/Mapbox";
 
 const map = new mapboxMap();
@@ -45,6 +46,9 @@ function App() {
               activeMonth={activeMonth}
               activeYear={activeYear}
             />
+          </Route>
+          <Route path="/list" exact>
+            <List activeMonth={activeMonth} activeYear={activeYear} />
           </Route>
           <Route path="/" exact>
             <Overview activeMonth={activeMonth} activeYear={activeYear} />
