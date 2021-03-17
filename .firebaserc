@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "strava-stats-aac46"
+    "default": "running-stats"
+  },
+  "targets": {
+    "strava-stats-aac46": {
+      "hosting": {
+        "running-stats": [
+          "running-stats"
+        ]
+      }
+    }
   }
 }
