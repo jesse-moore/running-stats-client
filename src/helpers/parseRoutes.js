@@ -6,7 +6,7 @@ export default ({ activities }) => {
   const polylines = [];
   activities.forEach((activity) => {
     const { map, start_latlng } = activity;
-    if (!start_latlng.lat || !start_latlng.lng) return;
+    if (!start_latlng || !start_latlng.lat || !start_latlng.lng) return;
     if (!map.summary_polyline) return;
     const { bbox, lineFeature } = parseRoute(map.summary_polyline);
     const point = parsePoint({ ...start_latlng, bbox });
