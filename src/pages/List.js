@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { ACTIVITIES } from "../queries";
 import Header from "../components/Stats/Header";
+import { WeatherIcon } from "../icons";
 
-export default ({ activeMonth, activeYear }) => {
+const List = ({ activeMonth, activeYear }) => {
+  const [fetchActivities, { data, loading }] = useLazyQuery(ACTIVITIES);
+
+  useEffect(() => {
+    fetchActivities({
+      variables: { page: 0, perPage: 10, year: activeYear, month: activeMonth },
+    });
+  }, [activeMonth, activeYear]);
+
+  const activities = data ? data.activities : null;
+  console.log(activities);
+
   return (
     <div className="page-container">
       <div className="text-center">
@@ -21,7 +35,9 @@ export default ({ activeMonth, activeYear }) => {
                 <div className="px-2">45m 02s</div>
               </div>
               <div className="flex flex-row">
-                <div className="px-2">ICON</div>
+                <div className="pl-1">
+                  <WeatherIcon type="rain" />
+                </div>
                 <div className="px-2">22 °C</div>
                 <div className="px-2">13 m/s</div>
                 <div className="px-2">66% rh</div>
@@ -55,3 +71,5 @@ export default ({ activeMonth, activeYear }) => {
     </div>
   );
 };
+
+export default List;

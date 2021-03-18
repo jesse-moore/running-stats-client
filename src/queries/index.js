@@ -1,5 +1,29 @@
 import { gql } from "@apollo/client";
 
+const ACTIVITY_DETAILS = gql`
+  fragment ActivityDetails on Activity {
+    name
+    distance
+    moving_time
+    total_elevation_gain
+    start_date_local
+    start_latlng {
+      lat
+      lng
+    }
+    end_latlng {
+      lat
+      lng
+    }
+    map {
+      summary_polyline
+    }
+    average_speed
+    elev_high
+    elev_low
+  }
+`;
+
 const STAT_DETAILS = gql`
   fragment StatDetails on Stat {
     type
@@ -17,6 +41,15 @@ const STAT_DETAILS = gql`
     daysOfWeek
     periodOfDay
   }
+`;
+
+export const ACTIVITIES = gql`
+  query($page: Int, $perPage: Int, $year: Int, $month: Int) {
+    activities(page: $page, perPage: $perPage, year: $year, month: $month) {
+      ...ActivityDetails
+    }
+  }
+  ${ACTIVITY_DETAILS}
 `;
 
 export const ROUTES = gql`
