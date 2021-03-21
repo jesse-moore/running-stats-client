@@ -6,6 +6,11 @@ const ACTIVITY_DETAILS = gql`
     distance
     moving_time
     total_elevation_gain
+    location_city
+    location_state
+    location_country
+    location_country_code
+    location_display_name
     start_date_local
     start_latlng {
       lat
@@ -21,6 +26,26 @@ const ACTIVITY_DETAILS = gql`
     average_speed
     elev_high
     elev_low
+    weather {
+      windDirection
+      cloudCover
+      minTemp
+      maxTemp
+      precip
+      solarRadiation
+      dewPoint
+      humidity
+      visibility
+      windSpeed
+      heatIndex
+      snowDepth
+      maxPressure
+      minPressure
+      snow
+      windGust
+      conditions
+      windChill
+    }
   }
 `;
 

@@ -21,7 +21,7 @@ const MapPage = ({ activeMonth, activeYear, map }) => {
 
   useEffect(async () => {
     if (loading || error || !data) return;
-    const { pointsGeoJSON, linesGeoJSON } = parseRoutes(data);
+    const { pointsGeoJSON, linesGeoJSON } = parseRoutes(data.activities);
     if (!map.isLoaded) {
       await map.loadMap({ pointsGeoJSON, linesGeoJSON });
     } else {
@@ -40,7 +40,7 @@ const MapPage = ({ activeMonth, activeYear, map }) => {
         <button
           onClick={() => map.fitBounds()}
           id="btn-fit-bounds"
-          className="btn-dflt bg-gray-200 absolute z-10 right-4"
+          className="hover:bg-blueGray-100 hover:text-blue-500 bg-white absolute z-10 right-4 px-2 py-1 m-2 rounded font-semibold focus:outline-none shadow;"
         >
           Fit All Activities
         </button>

@@ -3,25 +3,24 @@ import { useLazyQuery } from "@apollo/client";
 import { STAT } from "../queries";
 import parseStat from "../helpers/parseStat";
 import emptyStat from "../helpers/emptyStat";
-
 import { Stats } from "../components/Stats";
 import Loading from "../components/Loading";
 
-const Overview = ({ activeYear, activeMonth }) => {
-  const [units, setUnits] = useState("metric");
+const Overview = ({ activeYear, activeMonth, unit }) => {
   const [fetchStat, { data, loading }] = useLazyQuery(STAT);
 
   useEffect(() => {
+    if (activeMonth === null || activeYear === null) return;
     fetchStat({
       variables: { year: activeYear, month: activeMonth },
     });
-  }, [activeMonth, activeYear]);
+  }, [activeMonth, activeYear, unit]);
 
   const stat = data ? data.stat : emptyStat;
-  const parsedStat = parseStat(stat, units);
+  const parsedStat = parseStat(stat, unit);
 
   return (
-    <div className="page-container">
+    <div className="relative flex-grow">
       {loading && <Loading />}
       <Stats
         activeMonth={activeMonth}

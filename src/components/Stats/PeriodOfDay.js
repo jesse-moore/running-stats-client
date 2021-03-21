@@ -11,9 +11,7 @@ const PeriodOfDay = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="w-72 mx-4 my-4 relative">
-      <h3 className="font-thin text-xl">Period Of Day</h3>
-      <div className="stat-card-divider mb-2"></div>
+    <div className="w-64 p-5 relative bg-white shadow rounded text-center">
       <div id="periodOfDayChart" />
     </div>
   );

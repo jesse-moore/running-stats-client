@@ -1,11 +1,11 @@
 @tailwind components;
 
 body {
-  background-color: #282c34;
+  background-color: #f7f9fc;
 }
 
 .app {
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 50px);
 }
 
 .page-container {
@@ -25,12 +25,11 @@ body {
     py-1
     m-2
     rounded-lg
-    hover:bg-blue-400
     font-semibold
     focus:outline-none
     shadow-sm;
 }
 
 .mapboxgl-map {
-  @apply h-full;
+  height: 640px;
 }

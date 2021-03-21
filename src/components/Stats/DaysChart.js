@@ -49,9 +49,7 @@ function Chart({ data }) {
   }, [data]);
 
   return (
-    <div className="w-72 mx-4 my-4 relative">
-      <h3 className="font-thin text-xl">Days Run</h3>
-      <div className="stat-card-divider mb-2"></div>
+    <div className="w-max p-5 relative bg-white shadow rounded mr-4 mb-4 sm:mb-0">
       <div
         ref={toolTip}
         className="absolute bg-gray-600 text-white py-1 px-2 rounded opacity-0 text-sm"

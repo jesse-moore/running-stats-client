@@ -18,7 +18,7 @@ class mapboxMap {
     return new Promise((resolve) => {
       this.map = new mapboxgl.Map({
         container: this.element,
-        style: "mapbox://styles/mapbox/light-v10",
+        style: "mapbox://styles/mapbox/outdoors-v11",
         maxZoom: 14,
       });
 
@@ -48,7 +48,7 @@ class mapboxMap {
             visibility: "visible",
           },
           paint: {
-            "line-color": "rgba(255, 145, 0,.8)",
+            "line-color": "#c40000",
             "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1, 14, 3],
           },
           minzoom: 9,
@@ -180,7 +180,7 @@ class mapboxMap {
   }
 }
 
-const getBounds = (geojson) => {
+export const getBounds = (geojson) => {
   let north = -90;
   let west = 180;
   let south = 90;

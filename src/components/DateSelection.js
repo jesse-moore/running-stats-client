@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { AVAILABLE_STATS } from "../queries";
 
@@ -9,11 +9,21 @@ const DateSelection = ({
   setActiveMonth,
   setActiveYear,
 }) => {
-  const [fetchAvailableStats, { data }] = useLazyQuery(AVAILABLE_STATS);
+  const { data } = useQuery(AVAILABLE_STATS);
 
   useEffect(() => {
-    fetchAvailableStats();
-  }, []);
+    if (data && data.availableStats) {
+      const recentYear = Object.keys(data.availableStats).reduce((a, c) => {
+        return a > c ? a : c;
+      }, 0);
+      const recentMonth =
+        data.availableStats[recentYear][
+          data.availableStats[recentYear].length - 1
+        ];
+      setActiveYear(Number(recentYear));
+      setActiveMonth(Number(recentMonth));
+    }
+  }, [data]);
 
   const availableStats = data ? data.availableStats : {};
 
@@ -58,8 +68,9 @@ const DateSelection = ({
       const available = availableStats.hasOwnProperty(year);
       return { name: year, value: year, disabled: !available };
     });
+
   return (
-    <div className="py-2 mt-4 bg-gray-200 w-11/12 mx-auto rounded rounded-b-none shadow-md text-center">
+    <div className="py-2 mt-2 mb-4 bg-white w-11/12 mx-auto rounded rounded-b-none shadow text-center">
       <Buttons
         buttons={years}
         activeButton={activeYear}
@@ -77,9 +88,9 @@ const DateSelection = ({
 
   function Buttons({ buttons, activeButton, setActiveButton, type }) {
     const defaultStyle =
-      "px-2 py-1 m-2 rounded-lg bg-gray-100 font-semibold focus:outline-none shadow-sm ";
+      "px-2 py-1 m-2 rounded-lg font-bold focus:outline-none shadow ";
     const disabledStyle = "opacity-30";
-    const activeStyle = "bg-blue-400";
+    const activeStyle = "border-blue-500 border bg-blueGray-100 text-blue-500";
     const buttonElements = [
       { name: "All", value: 0, disabled: false },
       ...buttons,
@@ -90,8 +101,9 @@ const DateSelection = ({
       } else if (value === activeButton) {
         className += activeStyle;
       } else {
-		className += "hover:bg-blue-400"
-	  }
+        className +=
+          "hover:border-blue-500 hover:bg-blueGray-100 hover:text-blue-500 border border-gray-300";
+      }
       return (
         <button
           data-value={value}
