@@ -14,7 +14,7 @@ const Header = ({ activeYear, activeMonth }) => {
     title = `${monthName} ${activeYear}`;
   }
   return (
-    <div className="font-semibold text-2xl py-4">
+    <div className="font-semibold text-2xl py-4 text-center">
       <h3>{title}</h3>
     </div>
   );

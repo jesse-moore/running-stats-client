@@ -1,7 +1,7 @@
 import polyUtil from "@mapbox/polyline";
 import * as turf from "@turf/turf";
 
-export default ({ activities }) => {
+export default (activities) => {
   const points = [];
   const polylines = [];
   activities.forEach((activity) => {

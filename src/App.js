@@ -6,21 +6,21 @@ import DateSelection from "./components/DateSelection";
 import DateSelectionMobile from "./components/DateSelectionMobile";
 import Overview from "./pages/Overview";
 import MapPage from "./pages/Map";
+import List from "./pages/List";
 import mapboxMap from "./components/Mapbox";
 
 const map = new mapboxMap();
 
 function App() {
-  const [activeMonth, setActiveMonth] = useState(0);
-  const [activeYear, setActiveYear] = useState(0);
+  const [activeMonth, setActiveMonth] = useState(null);
+  const [activeYear, setActiveYear] = useState(null);
+  const [unit, setUnit] = useState("metric");
   const isMobile = useCheckMobile();
 
   return (
     <Router>
-      <div className="app bg-gray-300 relative flex flex-col max-w-screen-lg my-2 mx-auto rounded">
-        <header className="py-2 text-3xl rounded rounded-b-none text-center">
-          Activity Stats
-        </header>
+      <div className="app bg-blueGray-100 relative flex flex-col max-w-4xl mt-2 mx-auto rounded shadow pb-8">
+        <NavBar unit={unit} setUnit={setUnit} />
         {isMobile ? (
           <DateSelectionMobile
             activeMonth={activeMonth}
@@ -37,7 +37,6 @@ function App() {
           />
         )}
 
-        <NavBar />
         <Switch>
           <Route path="/map">
             <MapPage
@@ -46,8 +45,19 @@ function App() {
               activeYear={activeYear}
             />
           </Route>
+          <Route path="/list" exact>
+            <List
+              activeMonth={activeMonth}
+              activeYear={activeYear}
+              unit={unit}
+            />
+          </Route>
           <Route path="/" exact>
-            <Overview activeMonth={activeMonth} activeYear={activeYear} />
+            <Overview
+              activeMonth={activeMonth}
+              activeYear={activeYear}
+              unit={unit}
+            />
           </Route>
         </Switch>
       </div>
