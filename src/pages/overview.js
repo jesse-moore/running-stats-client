@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { STAT } from "../queries";
 import parseStat from "../helpers/parseStat";
@@ -8,7 +8,6 @@ import Loading from "../components/Loading";
 
 const Overview = ({ activeYear, activeMonth, unit }) => {
   const [fetchStat, { data, loading }] = useLazyQuery(STAT);
-
   useEffect(() => {
     if (activeMonth === null || activeYear === null) return;
     fetchStat({
@@ -21,7 +20,7 @@ const Overview = ({ activeYear, activeMonth, unit }) => {
 
   return (
     <div className="relative flex-grow">
-      {loading && <Loading />}
+      {(!data || loading) && <Loading />}
       <Stats
         activeMonth={activeMonth}
         activeYear={activeYear}
