@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const NavBar = ({ unit, setUnit }) => {
   const { pathname } = useLocation();
   const unitDivBaseClass =
-    "mx-2 px-2 h-8 font-semibold focus:outline-none rounded hover:bg-blueGray-100 hover:text-blue-500";
+    "mx-2 px-2 mt-1 h-8 font-semibold focus:outline-none rounded hover:bg-blueGray-100 hover:text-blue-500";
   const unitDivInactiveClass = `${unitDivBaseClass} bg-blueGray-300`;
   const unitDivActiveClass = `${unitDivBaseClass} bg-blueGray-100 text-blue-500`;
   const getClassName = (path) => {
@@ -28,7 +28,7 @@ const NavBar = ({ unit, setUnit }) => {
         <div className={getClassName("/map")}>Map</div>
       </Link>
       <div className="flex-grow"></div>
-      <div className="my-4 mr-2">
+      <div className="my-2 mr-2">
         <button
           className={
             unit === "metric" ? unitDivActiveClass : unitDivInactiveClass

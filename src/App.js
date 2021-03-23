@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import useCheckMobile from "./helpers/checkMobile";
 import NavBar from "./components/NavBar";
+import NavBarMobile from "./components/NavBarMobile";
 import DateSelection from "./components/DateSelection";
 import DateSelectionMobile from "./components/DateSelectionMobile";
 import Overview from "./pages/Overview";
@@ -20,21 +21,26 @@ function App() {
   return (
     <Router>
       <div className="app bg-blueGray-100 relative flex flex-col max-w-4xl mt-2 mx-auto rounded shadow pb-8">
-        <NavBar unit={unit} setUnit={setUnit} />
         {isMobile ? (
-          <DateSelectionMobile
-            activeMonth={activeMonth}
-            activeYear={activeYear}
-            setActiveMonth={setActiveMonth}
-            setActiveYear={setActiveYear}
-          />
+          <>
+            <NavBarMobile unit={unit} setUnit={setUnit} />
+            <DateSelectionMobile
+              activeMonth={activeMonth}
+              activeYear={activeYear}
+              setActiveMonth={setActiveMonth}
+              setActiveYear={setActiveYear}
+            />
+          </>
         ) : (
-          <DateSelection
-            activeMonth={activeMonth}
-            activeYear={activeYear}
-            setActiveMonth={setActiveMonth}
-            setActiveYear={setActiveYear}
-          />
+          <>
+            <NavBar unit={unit} setUnit={setUnit} />
+            <DateSelection
+              activeMonth={activeMonth}
+              activeYear={activeYear}
+              setActiveMonth={setActiveMonth}
+              setActiveYear={setActiveYear}
+            />
+          </>
         )}
 
         <Switch>
