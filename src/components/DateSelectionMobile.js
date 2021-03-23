@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { AVAILABLE_STATS } from "../queries";
 
@@ -9,11 +9,21 @@ const DateSelectionMobile = ({
   setActiveMonth,
   setActiveYear,
 }) => {
-  const [fetchAvailableStats, { data }] = useLazyQuery(AVAILABLE_STATS);
+	const { data } = useQuery(AVAILABLE_STATS);
 
-  useEffect(() => {
-    fetchAvailableStats();
-  }, []);
+	useEffect(() => {
+	  if (data && data.availableStats) {
+		const recentYear = Object.keys(data.availableStats).reduce((a, c) => {
+		  return a > c ? a : c;
+		}, 0);
+		const recentMonth =
+		  data.availableStats[recentYear][
+			data.availableStats[recentYear].length - 1
+		  ];
+		setActiveYear(Number(recentYear));
+		setActiveMonth(Number(recentMonth));
+	  }
+	}, [data]);
 
   const availableStats = data ? data.availableStats : {};
 
