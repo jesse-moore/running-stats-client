@@ -36,14 +36,19 @@ export default function parseActivity(activities, unit) {
         location_country,
         location_country_code,
       }),
-      weather: {
-        temp: parseTemp(weather, unit),
-        humidity: Math.round(weather.humidity),
-        windSpeed: parseWindSpeed(weather.windSpeed, unit),
-        condition: weather.conditions[0],
-      },
+      weather: parseWeather(weather, unit),
     };
   });
+}
+
+function parseWeather(weather, unit) {
+  if (!weather) return null;
+  return {
+    temp: parseTemp(weather, unit),
+    humidity: Math.round(weather.humidity),
+    windSpeed: parseWindSpeed(weather.windSpeed, unit),
+    condition: weather.conditions[0],
+  };
 }
 
 function parseTemp(weather, unit) {
