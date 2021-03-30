@@ -24,7 +24,7 @@
 ## Roadmap
 - [ ] ([#1][i1]) Paginate running activities
 - [ ] ([#3][i3]) Display overall weather related stats.
-- [ ] ([#2][i2]) Display list of running activities.
+- [X] ([#2][i2]) Display list of running activities.
 - [ ] ([#4][i4]) Display individual running activity.
 - [ ] ([#5][i5]) Display top activities by each stat metric.
 - [ ] ([#6][i6]) Display top activity splits.
